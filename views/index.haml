@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    / https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "initial-scale=1, width=device-width", :name => "viewport"}/
+    / http://getbootstrap.com/
+    %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", :rel => "stylesheet"}/
+    / app's own CSS
+    %link{:href => '/styles.css', :rel => "stylesheet"}
+    / https://developers.google.com/maps/documentation/javascript/
+    %script{:src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyDWVBvGfkXlCv48UPmGJX9cUsZG9eDTsyA&v=3.exp"}
+    / http://jquery.com/
+    %script{:src => "https://code.jquery.com/jquery-latest.min.js"}
+    / http://getbootstrap.com/
+    %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"}
+    / https://github.com/corejavascript/typeahead.js/blob/master/doc/jquery_typeahead.md
+    %script{:src => "https://cdn.rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.jquery.js"}
+    / http://handlebarsjs.com/
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"}
+    / app's own JavaScript
+    %script{:src => "scripts.js", :type => "text/javascript"}
+  %body
+    %title Mashup
+    / fill viewport
+    .container-fluid
+      / https://developers.google.com/maps/documentation/javascript/tutorial
+      #map-canvas
+      / http://getbootstrap.com/css/#forms
+      %form#form
+        .form-group
+          %label.sr-only{:for => "q"} City, State, Postal Code
+          %input#q.form-control{:placeholder => "City, State, Postal Code", :type => "text"}/
