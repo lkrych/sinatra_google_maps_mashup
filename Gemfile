@@ -5,6 +5,7 @@ gem 'haml'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'rake'
+gem 'pry'
 
 group :development, :test do
   gem 'sqlite3'
