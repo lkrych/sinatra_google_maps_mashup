@@ -6,6 +6,11 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'rake'
 gem 'pry'
+gem 'activesupport'
+gem 'httparty'
+gem 'sinatra-cacher'
+
+
 
 group :development, :test do
   gem 'sqlite3'
