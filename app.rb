@@ -3,7 +3,7 @@ require 'sinatra/activerecord'
 require 'pry'
 require_relative './config/environments' #database configuration
 require './helpers'
-require 'sinatra/cacher'
+
 
 get '/' do
     haml :index
@@ -17,9 +17,16 @@ get 'articles' do
 end
 
 get '/search' do
+    places = find(params[:q])
     if request.xhr?
+        return places
     end
 end
 
 get '/update' do
+end
+
+#clear threads
+after do
+  ActiveRecord::Base.clear_active_connections!
 end
