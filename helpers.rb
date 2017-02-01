@@ -11,6 +11,8 @@ require 'pry'
 
 
 def lookup(geo)
+    return nil if geo.nil?
+    
     #geo will be postal code
     #grab articles from google news and return in json format
     uri = HTTParty.get("https://news.google.com/news/feeds?geo=" + geo + "&output=rss")
@@ -22,21 +24,26 @@ def lookup(geo)
     #add items from rss feed to hash
     results_arr = []
     rss.items.each do |item|
-        results_arr << {"link": item.link, "title": item.title}
+        results_arr << {:link => item.link, :title => item.title}
     end
     
-   results_arr.to_json
+    results_arr.to_json
+
    
-   return results_arr
+    return results_arr
     
 end
 
 def find(query)
     #takes in postal code, city, or state
-    results_arr = []
     #search flexibly through the db
     places = Place.flex_search(query)
     #use inject to populate results arr
-    places.inject(results_arr) {|res_arr, place| res_arr << place.to_json}
-    return results_arr
+    
+    return places
+end
+
+def prettify(json)
+    return nil if json.nil?
+    return JSON.pretty_generate(json)
 end
