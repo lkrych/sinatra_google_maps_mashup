@@ -28,7 +28,7 @@
       / https://developers.google.com/maps/documentation/javascript/tutorial
       #map-canvas
       / http://getbootstrap.com/css/#forms
-      %form#form
+      %form#form{:autocomplete => "off"}
         .form-group
           %label.sr-only{:for => "q"} City, State, Postal Code
           %input#q.form-control{:placeholder => "City, State, Postal Code", :type => "text"}/
