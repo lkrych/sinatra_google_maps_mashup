@@ -7,11 +7,11 @@ class Place < ActiveRecord::Base
         
         if sw_lng.to_f.abs >= ne_lng.to_f.abs
             #doesn't cross the antimeridian
-            places = Place.limit(10).where("#{sw_lat} <= latitude AND latitude <= #{ne_lat} AND (#{sw_lng} <= longitude AND longitude <= #{ne_lng})").group([:country_code, :place_name, :admin_code1]).order("RANDOM()").as_json
+            places = self.limit(10).where("#{sw_lat} <= latitude AND latitude <= #{ne_lat} AND (#{sw_lng} <= longitude AND longitude <= #{ne_lng})").group([:country_code, :place_name, :admin_code1]).order("RANDOM()").as_json
             
         else
             #crosses the antimeridian
-            places = Place.limit(10).where("#{sw_lat} <= latitude AND latitude <= #{ne_lat} AND (#{sw_lng} <= longitude OR longitude <= #{ne_lng})").group([:country_code, :place_name, :admin_code1]).order("RANDOM()").as_json
+            places = self.limit(10).where("#{sw_lat} <= latitude AND latitude <= #{ne_lat} AND (#{sw_lng} <= longitude OR longitude <= #{ne_lng})").group([:country_code, :place_name, :admin_code1]).order("RANDOM()").as_json
             
         end
         
