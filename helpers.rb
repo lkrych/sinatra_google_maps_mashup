@@ -39,7 +39,6 @@ def find(query)
     #search flexibly through the db
     places = Place.flex_search(query)
     #use inject to populate results arr
-    
     return places
 end
 

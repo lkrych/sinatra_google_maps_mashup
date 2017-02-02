@@ -5,24 +5,16 @@ class Place < ActiveRecord::Base
     
     def self.update_view(sw_lat,sw_lng,ne_lat,ne_lng)
         
-        results_arr = []
-        
-        if sw_lng <= ne_lng
+        if sw_lng.to_f.abs >= ne_lng.to_f.abs
             #doesn't cross the antimeridian
-            places =  Place.limit(10).where("SELECT * FROM places
-            WHERE :sw_lat <= latitude AND latitude <= :ne_lat AND (:sw_lng <= longitude AND longitude <= :ne_lng)
-            GROUP BY country_code, place_name, admin_code1
-            ORDER BY RANDOM()")
+            places = Place.limit(10).where("#{sw_lat} <= latitude AND latitude <= #{ne_lat} AND (#{sw_lng} <= longitude AND longitude <= #{ne_lng})").group([:country_code, :place_name, :admin_code1]).order("RANDOM()").as_json
+            
         else
             #crosses the antimeridian
-            places =  Place.limit(10).where("SELECT * FROM places
-            WHERE :sw_lat <= latitude AND latitude <= :ne_lat AND (:sw_lng <= longitude OR longitude <= :ne_lng)
-            GROUP BY country_code, place_name, admin_code1
-            ORDER BY RANDOM()")
+            places = Place.limit(10).where("#{sw_lat} <= latitude AND latitude <= #{ne_lat} AND (#{sw_lng} <= longitude OR longitude <= #{ne_lng})").group([:country_code, :place_name, :admin_code1]).order("RANDOM()").as_json
+            
         end
         
-        places.inject(results_arr) {|res_arr, place| res_arr << place.to_json}
-        
-        return results_arr
+        return places
     end
 end

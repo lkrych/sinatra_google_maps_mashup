@@ -256,8 +256,39 @@ $(function() {
  * Adds marker for place to map.
  */
 function addMarker(place)
-{
-    // TODO
+{   
+    var content = '<ul>\n';
+    myLatLng = new google.maps.LatLng(place.latitude,place.longitude);
+    var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map
+    
+    });
+    
+     // remember marker
+    markers.push(marker);
+    
+    //add listener to marker
+
+    google.maps.event.addListener(marker,"click",function(){
+      $.getJSON('/articles', `geo=${place.postal_code}`)
+      .done(function(data, textStatus, jqXHR) {
+       // return data to content
+        for (var i = 0; i < data.length; i++)
+        {
+            content += "<li><a href = " + data[i].link + ">" + data[i].title + "</a></li>\n";
+            // actually, you'll need to concatenate some HTML around data[i]
+            // to make it a list item and a hypertext link
+        }
+        content += '</ul>';
+         showInfo(marker,content);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+          // log error to browser's console
+          console.log(errorThrown.toString());
+        });
+    });
+    
 }
 
 /**
@@ -334,7 +365,10 @@ function configure()
  */
 function removeMarkers()
 {
-    // TODO
+   for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+    markers = [];    
 }
 
 /**
@@ -422,4 +456,4 @@ function update()
         // log error to browser's console
         console.log(errorThrown.toString());
     });
-};
+}
