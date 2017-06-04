@@ -1,4 +1,4 @@
-#Sinatra Google Maps Mashup
+# Sinatra Google Maps Mashup
 
 ![view of San Francisco with news](https://res.cloudinary.com/heab4q3lg/image/upload/v1496611596/google_maps_mashup2j.png)
 
